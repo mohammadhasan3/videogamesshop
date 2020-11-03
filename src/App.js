@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import logo from "./logo.png";
+import { TitleHeader, LogoImage, ListText } from "./styles";
+import GamesList from "./Components/GamesList";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <TitleHeader>
+          Your number one destination for all things gaming
+        </TitleHeader>
+
+        <LogoImage src={logo} alt="Company Logo" />
+      </div>
+
+      <ListText>
+        <GamesList />
+      </ListText>
     </div>
   );
 }
