@@ -1,32 +1,54 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
-const TitleHeader = styled.h1`
+export const GlobalStyle = createGlobalStyle`
+body{
+  color: ${(props) => props.theme.mainColour};
+  background-color: ${(props) => props.theme.backgroundColour};
+}
+`;
+
+export const ThemeButton = styled.button`
+  font-size: 1em;
+  margin: 1.25em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background-color: ${(props) => props.theme.mainColor};
+  color: ${(props) => props.theme.backgroundColor};
+`;
+
+export const SearchBarStyle = styled.input`
+  padding: 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  width: 40%;
+`;
+export const TitleHeader = styled.h1`
   text-align: center;
   color: orangered;
 `;
 
-const LogoImage = styled.img`
+export const LogoImage = styled.img`
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 25%;
+  margin-bottom: 20px;
+  height: 10%;
 `;
 
-const GameImage = styled.img`
+export const GameImage = styled.img`
   display: block;
   margin-left: 20px;
   margin-right: 20px;
   height: 200px;
 `;
 
-const InfoText = styled.p`
+export const InfoText = styled.p`
   text-align: center;
+  color: ${(props) => props.theme.priceColour};
 `;
 
-const ListText = styled.div`
+export const ListText = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
 `;
-
-export { TitleHeader, LogoImage, GameImage, InfoText, ListText };
