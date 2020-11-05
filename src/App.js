@@ -4,6 +4,8 @@ import logo from "./logo3.jpg";
 import { TitleHeader, LogoImage, GlobalStyle, ThemeButton } from "./styles";
 import GamesList from "./Components/GamesList";
 import { ThemeProvider } from "styled-components";
+import GameDescription from "./Components/GameDescription";
+import games from "./games";
 
 const theme = {
   light: {
@@ -22,6 +24,8 @@ const theme = {
 function App() {
   const themeText = ["Light Mode", "Dark Mode"];
 
+  const [game, setGame] = useState(null);
+
   const [themeMode, setThemeMode] = useState("light");
   const toggleTheme = () => {
     if (themeMode === "light") {
@@ -29,6 +33,11 @@ function App() {
     } else {
       setThemeMode("light");
     }
+  };
+
+  const setView = () => {
+    if (game) return <GameDescription game={game} />;
+    return <GamesList setGame={setGame} />;
   };
 
   let idx = 2;
@@ -50,9 +59,8 @@ function App() {
 
           <LogoImage src={logo} alt="Company Logo" />
         </div>
-
-        <GamesList />
       </div>
+      <>{setView()}</>
     </ThemeProvider>
   );
 }
