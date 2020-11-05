@@ -12,12 +12,14 @@ const theme = {
     mainColour: "#121929",
     backgroundColour: "#ede6d6",
     priceColour: "#D2691E",
+    red: "#ff3232",
   },
 
   dark: {
-    mainColour: "#fff",
+    mainColour: "#f0ead6",
     backgroundColour: "black",
-    priceColour: "Eggshell",
+    priceColour: "#f0ead6",
+    red: "#ff3232",
   },
 };
 
@@ -35,9 +37,26 @@ function App() {
     }
   };
 
+  const [_games, setGames] = useState(games);
+
+  const deleteGame = (gameId) => {
+    const updatedGames = _games.filter((game) => game.id !== gameId);
+    setGames(updatedGames);
+  };
+
   const setView = () => {
-    if (game) return <GameDescription game={game} />;
-    return <GamesList setGame={setGame} />;
+    if (game)
+      return (
+        <GameDescription
+          setGame={setGame}
+          game={game}
+          games={_games}
+          deleteGame={deleteGame}
+        />
+      );
+    return (
+      <GamesList setGame={setGame} games={_games} deleteGame={deleteGame} />
+    );
   };
 
   let idx = 2;

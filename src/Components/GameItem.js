@@ -1,16 +1,22 @@
-import { GameImage, InfoText } from "../styles";
+import { GameImage, InfoText, DeleteButtonStyled } from "../styles";
 
 const GameItem = (props) => {
-  const gameObject = props.gameObject;
+  const game = props.game;
+
+  const handleDelete = () => {
+    props.deleteGame(game.id);
+  };
+
   return (
     <div>
       <GameImage
-        src={gameObject.image}
-        alt={gameObject.name}
-        onClick={() => props.setGame(gameObject)}
+        src={game.image}
+        alt={game.name}
+        onClick={() => props.setGame(game)}
       />
-      <InfoText>{gameObject.name}</InfoText>
-      <InfoText>{gameObject.price} KD</InfoText>
+      <InfoText>{game.name}</InfoText>
+      <InfoText>{game.price} KD</InfoText>
+      <DeleteButtonStyled onClick={handleDelete}>Delete</DeleteButtonStyled>
     </div>
   );
 };

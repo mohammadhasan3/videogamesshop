@@ -23,6 +23,15 @@ export const DetailWrapper = styled.div`
   }
 `;
 
+export const BackButton = styled.button`
+  font-size: 1em;
+  margin: 1.25em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background-color: green;
+  color: white;
+`;
+
 export const ThemeButton = styled.button`
   font-size: 1em;
   margin: 1.25em;
@@ -30,6 +39,14 @@ export const ThemeButton = styled.button`
   border-radius: 3px;
   background-color: ${(props) => props.theme.mainColor};
   color: ${(props) => props.theme.backgroundColor};
+`;
+
+export const DeleteButtonStyled = styled.button`
+  background-color: ${(props) => props.theme.red};
+  font-size: 1em;
+  margin: 1.25em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
 `;
 
 export const SearchBarStyle = styled.input`
