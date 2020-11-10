@@ -1,11 +1,13 @@
 import "./App.css";
 import { useState } from "react";
-import logo from "./logo3.jpg";
-import { TitleHeader, LogoImage, GlobalStyle, ThemeButton } from "./styles";
+import Home from "./Components/Home";
+import { GlobalStyle, ThemeButton } from "./styles";
 import GamesList from "./Components/GamesList";
 import { ThemeProvider } from "styled-components";
 import GameDescription from "./Components/GameDescription";
 import games from "./games";
+import { Route, Switch } from "react-router";
+import { Link } from "react-router-dom";
 
 const theme = {
   light: {
@@ -69,17 +71,26 @@ function App() {
   return (
     <ThemeProvider theme={theme[themeMode]}>
       <GlobalStyle />
+      <Link to="/games" style={{ margin: 10, float: "right" }}>
+        Games
+      </Link>
       <ThemeButton onClick={toggleTheme}>{themeText[idx]} </ThemeButton>
-      <div>
-        <div>
-          <TitleHeader>
-            Your number one destination for all things gaming
-          </TitleHeader>
-
-          <LogoImage src={logo} alt="Company Logo" />
-        </div>
-      </div>
-      <>{setView()}</>
+      <Switch>
+        <Route path="/games/gameId">
+          <GameDescription
+            setGame={setGame}
+            game={game}
+            games={_games}
+            deleteGame={deleteGame}
+          />
+        </Route>
+        <Route path="/games">
+          <GamesList setGame={setGame} games={_games} deleteGame={deleteGame} />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
     </ThemeProvider>
   );
 }
