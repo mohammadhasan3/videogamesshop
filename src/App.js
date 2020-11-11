@@ -4,10 +4,13 @@ import Home from "./Components/Home";
 import { GlobalStyle, ThemeButton } from "./styles";
 import GamesList from "./Components/GamesList";
 import { ThemeProvider } from "styled-components";
+import logo from "./logo3.jpg";
 import GameDescription from "./Components/GameDescription";
 import games from "./games";
 import { Route, Switch } from "react-router";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import NavBar from "./Components/NavBar";
 
 const theme = {
   light: {
@@ -71,12 +74,11 @@ function App() {
   return (
     <ThemeProvider theme={theme[themeMode]}>
       <GlobalStyle />
-      <Link to="/games" style={{ margin: 10, float: "right" }}>
-        Games
-      </Link>
-      <ThemeButton onClick={toggleTheme}>{themeText[idx]} </ThemeButton>
+
+      <NavBar toggleTheme={toggleTheme} themeText={themeText} idx={idx} />
+
       <Switch>
-        <Route path="/games/gameId">
+        <Route path="/games/:gameSlug">
           <GameDescription
             setGame={setGame}
             game={game}

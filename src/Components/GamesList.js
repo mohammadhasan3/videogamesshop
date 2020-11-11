@@ -18,10 +18,10 @@ const GamesList = (props) => {
     ));
 
   return (
-    <>
+    <div className="container">
       <SearchBar setQuery={setQuery} />
-      <ListText>{gameList}</ListText>
-    </>
+      <ListText className="row">{gameList}</ListText>
+    </div>
   );
 };
 

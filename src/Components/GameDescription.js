@@ -1,15 +1,17 @@
 import { DetailWrapper, BackButton, DeleteButtonStyled } from "../styles";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 const GameDescription = (props) => {
   const game = props.game;
-  const gameId = useParams().gameId;
-  const games = props.games.find((game) => game.id === +gameId);
+  const gameId = useParams().gameSlug;
+  const games = props.games.find((game) => game.slug === gameId);
 
   const handleDelete = () => {
     props.deleteGame(game.id);
     props.setGame(null);
   };
+
+  if (!games) return <Redirect to="/games" />;
 
   return (
     <DetailWrapper>

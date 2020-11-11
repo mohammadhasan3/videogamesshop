@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import { Link, NavLink } from "react-router-dom";
 
 export const GlobalStyle = createGlobalStyle`
 body{
@@ -23,6 +24,28 @@ export const DetailWrapper = styled.div`
   }
 `;
 
+export const NavStyled = styled.nav`
+  background-color: ___CSS_0___;
+`;
+
+export const NavItem = styled(NavLink)`
+  padding: 0.25em 1em;
+  color: ___CSS_0___;
+
+  &.active {
+    color: ___CSS_1___;
+    background-color: fuchsia;
+  }
+`;
+
+export const Logo = styled(Link)`
+  padding: 0.75em;
+
+  img {
+    width: 8rem;
+  }
+`;
+
 export const BackButton = styled.button`
   font-size: 1em;
   margin: 1.25em;
@@ -34,7 +57,6 @@ export const BackButton = styled.button`
 
 export const ThemeButton = styled.button`
   font-size: 1em;
-  margin: 1.25em;
   padding: 0.25em 1em;
   border-radius: 3px;
   background-color: ${(props) => props.theme.mainColor};
@@ -44,7 +66,8 @@ export const ThemeButton = styled.button`
 export const DeleteButtonStyled = styled.button`
   background-color: ${(props) => props.theme.red};
   font-size: 1em;
-  margin: 1.25em;
+  margin-left: calc(50% - 40px);
+  margin-bottom: 15px;
   padding: 0.25em 1em;
   border-radius: 3px;
 `;
