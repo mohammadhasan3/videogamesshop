@@ -1,5 +1,4 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
 
 //Styling
 import { ThemeButton, Logo, NavStyled, NavItem } from "../styles";
@@ -9,7 +8,7 @@ const NavBar = (props) => {
   return (
     <NavStyled className="navbar navbar-expand-lg navbar-light bg-light">
       <Logo to="/">
-        <img src={logo}></img>
+        <img src={logo} alt="Red Panda Gaming"></img>
       </Logo>
 
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">

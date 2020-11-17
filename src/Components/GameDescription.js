@@ -1,5 +1,5 @@
 //Styles
-import { DetailWrapper, DeleteButtonStyled } from "../styles";
+import { DetailWrapper } from "../styles";
 
 //Libraries
 import React from "react";
@@ -11,6 +11,7 @@ import gameStore from "../stores/gameStore";
 
 //Components
 import DeleteButton from "./buttons/DeleteButton";
+import UpdateButton from "./buttons/UpdateButton";
 
 const GameDescription = () => {
   const gameSlug = useParams().gameSlug;
@@ -25,7 +26,7 @@ const GameDescription = () => {
       <img src={game.image} alt={game.name} />
       <p>{game.description}</p>
       <p>{game.price} KD</p>
-
+      <UpdateButton game={game}>Update</UpdateButton>
       <DeleteButton gameId={game.id} />
     </DetailWrapper>
   );

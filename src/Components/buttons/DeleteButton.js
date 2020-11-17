@@ -1,5 +1,3 @@
-import { useParams } from "react";
-
 //Stores
 import gameStore from "../../stores/gameStore";
 

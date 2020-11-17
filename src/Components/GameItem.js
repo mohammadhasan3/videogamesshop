@@ -1,19 +1,12 @@
-import { GameImage, InfoText, DeleteButtonStyled } from "../styles";
+import { GameImage, InfoText } from "../styles";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
-
-//Stores
-import gameStore from "../stores/gameStore";
 
 //Components
 import DeleteButton from "./buttons/DeleteButton";
 import UpdateButton from "./buttons/UpdateButton";
 
 const GameItem = ({ game }) => {
-  const handleDelete = () => {
-    gameStore.deleteGame(game.id);
-  };
-
   return (
     <div className="col-lg-3 col-md-4 col-sm-6">
       <Link

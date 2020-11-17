@@ -29,8 +29,6 @@ const theme = {
 function App() {
   const themeText = ["Light Mode", "Dark Mode"];
 
-  const [game, setGame] = useState(null);
-
   const [themeMode, setThemeMode] = useState("light");
   const toggleTheme = () => {
     if (themeMode === "light") {
