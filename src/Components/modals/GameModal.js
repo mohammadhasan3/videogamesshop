@@ -6,13 +6,15 @@ import { BsXSquare } from "react-icons/bs";
 //Stores
 import gameStore from "../../stores/gameStore";
 
-const GameModal = ({ isOpen, closeModal }) => {
-  const [game, setGame] = useState({
-    name: "",
-    price: 0,
-    description: "",
-    image: "",
-  });
+const GameModal = ({ isOpen, closeModal, oldGame }) => {
+  const [game, setGame] = useState(
+    oldGame ?? {
+      name: "",
+      price: 0,
+      description: "",
+      image: "",
+    }
+  );
 
   const handleChange = (event) => {
     setGame({ ...game, [event.target.name]: event.target.value });
@@ -20,7 +22,8 @@ const GameModal = ({ isOpen, closeModal }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    gameStore.createGame(game);
+    // gameStore.createGame(game);
+    gameStore[oldGame ? "updateGame" : "createGame"](game);
     closeModal();
   };
 
@@ -45,6 +48,7 @@ const GameModal = ({ isOpen, closeModal }) => {
               type="text"
               className="form-control"
               name="name"
+              value={game.name}
               onChange={handleChange}
             />
           </div>
@@ -55,6 +59,7 @@ const GameModal = ({ isOpen, closeModal }) => {
               type="number"
               min="1"
               name="price"
+              value={game.price}
               className="form-control"
               onChange={handleChange}
             />
@@ -66,6 +71,7 @@ const GameModal = ({ isOpen, closeModal }) => {
             required
             type="text"
             name="description"
+            value={game.description}
             className="form-control"
             onChange={handleChange}
           />
@@ -76,11 +82,12 @@ const GameModal = ({ isOpen, closeModal }) => {
             required
             type="text"
             name="image"
+            value={game.image}
             className="form-control"
             onChange={handleChange}
           />
         </div>
-        <CreateButtonStyled>Create</CreateButtonStyled>
+        <CreateButtonStyled>{oldGame ? "Update" : "Create"}</CreateButtonStyled>
       </form>
     </Modal>
   );

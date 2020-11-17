@@ -13,6 +13,7 @@ class GameStore {
       games: observable,
       createGame: action,
       deleteGame: action,
+      updateGame: action,
     });
   }
 
@@ -25,6 +26,12 @@ class GameStore {
   deleteGame = (gameId) => {
     this.games = this.games.filter((game) => game.id !== gameId);
     console.log(this.games);
+  };
+
+  updateGame = (updatedGame) => {
+    const game = this.games.find((game) => game.id === updatedGame.id);
+    for (const key in game) game[key] = updatedGame[key];
+    game.slug = slugify(game.name);
   };
 }
 

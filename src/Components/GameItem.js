@@ -1,11 +1,13 @@
 import { GameImage, InfoText, DeleteButtonStyled } from "../styles";
 import { Link } from "react-router-dom";
+import { observer } from "mobx-react";
 
 //Stores
 import gameStore from "../stores/gameStore";
 
 //Components
 import DeleteButton from "./buttons/DeleteButton";
+import UpdateButton from "./buttons/UpdateButton";
 
 const GameItem = ({ game }) => {
   const handleDelete = () => {
@@ -23,6 +25,7 @@ const GameItem = ({ game }) => {
 
       <InfoText>{game.name}</InfoText>
       <InfoText>{game.price} KD</InfoText>
+      <UpdateButton game={game}>Update</UpdateButton>
       <DeleteButton gameId={game.id} className="d-flex justify-content-center">
         Delete
       </DeleteButton>
@@ -30,4 +33,4 @@ const GameItem = ({ game }) => {
   );
 };
 
-export default GameItem;
+export default observer(GameItem);

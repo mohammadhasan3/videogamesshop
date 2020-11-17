@@ -82,6 +82,15 @@ export const CreateButtonStyled = styled.button`
   }
 `;
 
+export const UpdateButtonStyled = styled.button`
+  background-color: green;
+  color: white;
+  margin-left: calc(50% - 40px);
+  margin-bottom: 15px;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+`;
+
 export const SearchBarStyle = styled.input`
   padding: 0.5rem;
   margin: 1rem auto;
