@@ -34,7 +34,7 @@ export const NavItem = styled(NavLink)`
 
   &.active {
     color: ___CSS_1___;
-    background-color: fuchsia;
+    background-color: white;
   }
 `;
 
@@ -70,6 +70,16 @@ export const DeleteButtonStyled = styled.button`
   margin-bottom: 15px;
   padding: 0.25em 1em;
   border-radius: 3px;
+`;
+
+export const CreateButtonStyled = styled.button`
+  color: ${(props) => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.mainColor};
+
+  &:hover {
+    color: ${(props) => props.theme.mainColor};
+    background-color: ${(props) => props.theme.backgroundColor};
+  }
 `;
 
 export const SearchBarStyle = styled.input`

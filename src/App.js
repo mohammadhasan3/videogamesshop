@@ -1,22 +1,20 @@
 import "./App.css";
 import { useState } from "react";
 import Home from "./Components/Home";
-import { GlobalStyle, ThemeButton } from "./styles";
+import { GlobalStyle } from "./styles";
 import GamesList from "./Components/GamesList";
 import { ThemeProvider } from "styled-components";
-import logo from "./logo3.jpg";
+
 import GameDescription from "./Components/GameDescription";
-import games from "./games";
 import { Route, Switch } from "react-router";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+
 import NavBar from "./Components/NavBar";
 
 const theme = {
   light: {
-    mainColour: "#121929",
-    backgroundColour: "#ede6d6",
-    priceColour: "#D2691E",
+    mainColour: "#000033",
+    backgroundColour: "#00B2EE",
+    priceColour: "#000033",
     red: "#ff3232",
   },
 
@@ -42,28 +40,6 @@ function App() {
     }
   };
 
-  const [_games, setGames] = useState(games);
-
-  const deleteGame = (gameId) => {
-    const updatedGames = _games.filter((game) => game.id !== gameId);
-    setGames(updatedGames);
-  };
-
-  const setView = () => {
-    if (game)
-      return (
-        <GameDescription
-          setGame={setGame}
-          game={game}
-          games={_games}
-          deleteGame={deleteGame}
-        />
-      );
-    return (
-      <GamesList setGame={setGame} games={_games} deleteGame={deleteGame} />
-    );
-  };
-
   let idx = 2;
   if (themeMode === "light") {
     idx = 1;
@@ -79,15 +55,10 @@ function App() {
 
       <Switch>
         <Route path="/games/:gameSlug">
-          <GameDescription
-            setGame={setGame}
-            game={game}
-            games={_games}
-            deleteGame={deleteGame}
-          />
+          <GameDescription />
         </Route>
         <Route path="/games">
-          <GamesList setGame={setGame} games={_games} deleteGame={deleteGame} />
+          <GamesList />
         </Route>
         <Route path="/">
           <Home />

@@ -14,9 +14,9 @@ const NavBar = (props) => {
 
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <NavLink to="/games" style={{ margin: 10, float: "right" }}>
+          <NavItem to="/games" style={{ margin: 10, float: "right" }}>
             Games
-          </NavLink>
+          </NavItem>
           <ThemeButton onClick={props.toggleTheme}>
             {props.themeText[props.idx]}{" "}
           </ThemeButton>

@@ -2,27 +2,24 @@ import { ListText } from "../styles";
 import GameItem from "./GameItem";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
+import AddButton from "./buttons/AddButton";
+import gameStore from "../stores/gameStore";
+import { observer } from "mobx-react";
 
-const GamesList = (props) => {
+const GamesList = () => {
   const [query, setQuery] = useState("");
 
-  const gameList = props.games
+  const gameList = gameStore.games
     .filter((game) => game.name.toLowerCase().includes(query.toLowerCase()))
-    .map((game) => (
-      <GameItem
-        game={game}
-        key={game.id}
-        setGame={props.setGame}
-        deleteGame={props.deleteGame}
-      />
-    ));
+    .map((games) => <GameItem game={games} key={games.id} />);
 
   return (
     <div className="container">
       <SearchBar setQuery={setQuery} />
+      <AddButton />
       <ListText className="row">{gameList}</ListText>
     </div>
   );
 };
 
-export default GamesList;
+export default observer(GamesList);

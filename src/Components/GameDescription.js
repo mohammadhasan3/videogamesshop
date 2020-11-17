@@ -1,17 +1,23 @@
-import { DetailWrapper, BackButton, DeleteButtonStyled } from "../styles";
+//Styles
+import { DetailWrapper, DeleteButtonStyled } from "../styles";
+
+//Libraries
 import React from "react";
 import { Redirect, useParams } from "react-router-dom";
-const GameDescription = (props) => {
-  const game = props.game;
-  const gameId = useParams().gameSlug;
-  const games = props.games.find((game) => game.slug === gameId);
+import { observer } from "mobx-react";
 
-  const handleDelete = () => {
-    props.deleteGame(game.id);
-    props.setGame(null);
-  };
+//Stores
+import gameStore from "../stores/gameStore";
 
-  if (!games) return <Redirect to="/games" />;
+//Components
+import DeleteButton from "./buttons/DeleteButton";
+
+const GameDescription = () => {
+  const gameSlug = useParams().gameSlug;
+  const game = gameStore.games.find((game) => game.slug === gameSlug);
+
+  console.log(game);
+  if (!game) return <Redirect to="/games" />;
 
   return (
     <DetailWrapper>
@@ -19,10 +25,10 @@ const GameDescription = (props) => {
       <img src={game.image} alt={game.name} />
       <p>{game.description}</p>
       <p>{game.price} KD</p>
-      <BackButton onClick={() => props.setGame()}>Go Back</BackButton>
-      <DeleteButtonStyled onClick={handleDelete}>Delete</DeleteButtonStyled>
+
+      <DeleteButton gameId={game.id} />
     </DetailWrapper>
   );
 };
 
-export default GameDescription;
+export default observer(GameDescription);
