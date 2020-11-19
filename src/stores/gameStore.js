@@ -1,13 +1,10 @@
-//Data
-import games from "../games";
-
 //Libraries
 import { action, makeObservable, observable } from "mobx";
 import slugify from "react-slugify";
 import axios from "axios";
 
 class GameStore {
-  games = games;
+  games = [];
 
   constructor() {
     makeObservable(this, {
@@ -22,10 +19,11 @@ class GameStore {
   fetchGames = async () => {
     const response = await axios.get("http://localhost:8000/games");
     this.games = response.data;
+    console.log(response);
   };
 
   createGame = (newGame) => {
-    newGame.id = games[games.length - 1].id + 1;
+    newGame.id = this.games[this.games.length - 1].id + 1;
     newGame.slug = slugify(newGame.name);
     this.games.push(newGame);
   };
