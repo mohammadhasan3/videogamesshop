@@ -17,9 +17,12 @@ class GameStore {
   }
 
   fetchGames = async () => {
-    const response = await axios.get("http://localhost:8000/games");
-    this.games = response.data;
-    console.log(response);
+    try {
+      const response = await axios.get("http://localhost:8000/games");
+      this.games = response.data;
+    } catch (error) {
+      console.log("GameStore -> fetchGames -> error", error);
+    }
   };
 
   createGame = (newGame) => {
@@ -28,9 +31,15 @@ class GameStore {
     this.games.push(newGame);
   };
 
-  deleteGame = (gameId) => {
-    this.games = this.games.filter((game) => game.id !== gameId);
-    console.log(this.games);
+  deleteGame = async (gameId) => {
+    // this.games = this.games.filter((game) => game.id !== gameId);
+    // console.log(this.games);
+    try {
+      await axios.delete(`http://localhost:8000/games/${gameId}`);
+      this.games = this.games.filter((game) => game.id !== gameId);
+    } catch (error) {
+      console.log("CookieStore -> deleteCookie -> error", error);
+    }
   };
 
   updateGame = (updatedGame) => {
