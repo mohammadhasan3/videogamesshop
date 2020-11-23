@@ -21,14 +21,20 @@ class GameStore {
       const response = await axios.get("http://localhost:8000/games");
       this.games = response.data;
     } catch (error) {
-      console.log("GameStore -> fetchGames -> error", error);
+      console.error("GameStore -> fetchGames -> error", error);
     }
   };
 
-  createGame = (newGame) => {
-    newGame.id = this.games[this.games.length - 1].id + 1;
-    newGame.slug = slugify(newGame.name);
-    this.games.push(newGame);
+  createGame = async (newGame) => {
+    // newGame.id = this.games[this.games.length - 1].id + 1;
+    // newGame.slug = slugify(newGame.name);
+    // this.games.push(newGame);
+    try {
+      const res = await axios.post("http://localhost:8000/games", newGame);
+      this.games.push(res.data);
+    } catch (error) {
+      console.error("GameStore -> createGame -> error", error);
+    }
   };
 
   deleteGame = async (gameId) => {
@@ -38,14 +44,26 @@ class GameStore {
       await axios.delete(`http://localhost:8000/games/${gameId}`);
       this.games = this.games.filter((game) => game.id !== gameId);
     } catch (error) {
-      console.log("CookieStore -> deleteCookie -> error", error);
+      console.error("CookieStore -> deleteCookie -> error", error);
     }
   };
 
-  updateGame = (updatedGame) => {
-    const game = this.games.find((game) => game.id === updatedGame.id);
-    for (const key in game) game[key] = updatedGame[key];
-    game.slug = slugify(game.name);
+  updateGame = async (updatedGame) => {
+    // const game = this.games.find((game) => game.id === updatedGame.id);
+    // for (const key in game) game[key] = updatedGame[key];
+    // game.slug = slugify(game.name);
+    try {
+      await axios.put(
+        `http://localhost:8000/games/${updatedGame.id}`,
+        updatedGame
+      );
+
+      const game = this.games.find((game) => game.id === updatedGame.id);
+
+      for (const key in game) game[key] = updatedGame[key];
+    } catch (error) {
+      console.error("GameStore -> updateGame -> error", error);
+    }
   };
 }
 
