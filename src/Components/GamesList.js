@@ -6,17 +6,17 @@ import AddButton from "./buttons/AddButton";
 import gameStore from "../stores/gameStore";
 import { observer } from "mobx-react";
 
-const GamesList = () => {
+const GamesList = ({ games }) => {
   const [query, setQuery] = useState("");
 
-  const gameList = gameStore.games
+  const gameList = games
     .filter((game) => game.name.toLowerCase().includes(query.toLowerCase()))
     .map((games) => <GameItem game={games} key={games.id} />);
 
   return (
     <div className="container">
       <SearchBar setQuery={setQuery} />
-      <AddButton />
+      {/* <AddButton /> */}
       <ListText className="row">{gameList}</ListText>
     </div>
   );

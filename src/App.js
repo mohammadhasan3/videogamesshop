@@ -4,11 +4,13 @@ import Home from "./Components/Home";
 import { GlobalStyle } from "./styles";
 import GamesList from "./Components/GamesList";
 import { ThemeProvider } from "styled-components";
-
+import gameStore from "./stores/gameStore";
 import GameDescription from "./Components/GameDescription";
 import { Route, Switch } from "react-router";
-
+import { observer } from "mobx-react";
 import NavBar from "./Components/NavBar";
+import ShopsList from "./Components/ShopsList";
+import ShopDescription from "./Components/ShopDescription";
 
 const theme = {
   light: {
@@ -52,11 +54,18 @@ function App() {
       <NavBar toggleTheme={toggleTheme} themeText={themeText} idx={idx} />
 
       <Switch>
+        <Route path="/shops/:shopSlug">
+          <ShopDescription />
+        </Route>
+        <Route path="/shops">
+          <ShopsList />
+        </Route>
+
         <Route path="/games/:gameSlug">
           <GameDescription />
         </Route>
         <Route path="/games">
-          <GamesList />
+          <GamesList games={gameStore.games} />
         </Route>
         <Route path="/">
           <Home />
@@ -66,4 +75,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

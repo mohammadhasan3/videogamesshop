@@ -25,13 +25,21 @@ class GameStore {
     }
   };
 
-  createGame = async (newGame) => {
+  getGameById = (gameId) => this.games.find((game) => game.id === gameId);
+  createGame = async (newGame, shop) => {
     // newGame.id = this.games[this.games.length - 1].id + 1;
     // newGame.slug = slugify(newGame.name);
     // this.games.push(newGame);
+
     try {
-      const res = await axios.post("http://localhost:8000/games", newGame);
+      const formData = new FormData();
+      for (const key in newGame) formData.append(key, newGame[key]);
+      const res = await axios.post(
+        `http://localhost:8000/shops/${shop.id}/games`,
+        formData
+      );
       this.games.push(res.data);
+      shop.games.push({ id: res.data.id });
     } catch (error) {
       console.error("GameStore -> createGame -> error", error);
     }
@@ -53,6 +61,8 @@ class GameStore {
     // for (const key in game) game[key] = updatedGame[key];
     // game.slug = slugify(game.name);
     try {
+      const formData = new FormData();
+      for (const key in updatedGame) formData.append(key, updatedGame[key]);
       await axios.put(
         `http://localhost:8000/games/${updatedGame.id}`,
         updatedGame

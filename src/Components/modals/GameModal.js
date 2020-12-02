@@ -6,7 +6,7 @@ import { BsXSquare } from "react-icons/bs";
 //Stores
 import gameStore from "../../stores/gameStore";
 
-const GameModal = ({ isOpen, closeModal, oldGame }) => {
+const GameModal = ({ isOpen, closeModal, oldGame, shop }) => {
   const [game, setGame] = useState(
     oldGame ?? {
       name: "",
@@ -23,9 +23,12 @@ const GameModal = ({ isOpen, closeModal, oldGame }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // gameStore.createGame(game);
-    gameStore[oldGame ? "updateGame" : "createGame"](game);
+    gameStore[oldGame ? "updateGame" : "createGame"](game, shop);
     closeModal();
   };
+
+  const handleImage = (event) =>
+    setGame({ ...game, image: event.target.files[0] });
 
   return (
     <Modal
@@ -80,11 +83,10 @@ const GameModal = ({ isOpen, closeModal, oldGame }) => {
           <label>Image</label>
           <input
             required
-            type="text"
+            type="file"
             name="image"
-            value={game.image}
             className="form-control"
-            onChange={handleChange}
+            onChange={handleImage}
           />
         </div>
         <CreateButtonStyled>{oldGame ? "Update" : "Create"}</CreateButtonStyled>

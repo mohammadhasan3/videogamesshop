@@ -16,6 +16,9 @@ const NavBar = (props) => {
           <NavItem to="/games" style={{ margin: 10, float: "right" }}>
             Games
           </NavItem>
+          <NavItem to="/shops" style={{ margin: 10, float: "right" }}>
+            Shops
+          </NavItem>
           <ThemeButton onClick={props.toggleTheme}>
             {props.themeText[props.idx]}{" "}
           </ThemeButton>

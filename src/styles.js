@@ -117,6 +117,13 @@ export const GameImage = styled.img`
   height: 200px;
 `;
 
+export const ShopImage = styled.img`
+  display: block;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 200px;
+`;
+
 export const InfoText = styled.p`
   text-align: center;
   color: ${(props) => props.theme.priceColour};
