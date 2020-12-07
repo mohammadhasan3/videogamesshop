@@ -1,14 +1,16 @@
 //Libraries
 import { action, makeObservable, observable } from "mobx";
 import slugify from "react-slugify";
-import axios from "axios";
+import instance from "./instance";
 
 class ShopStore {
   shops = [];
+  loading = true;
 
   constructor() {
     makeObservable(this, {
       shops: observable,
+      loading: observable,
       createShop: action,
       deleteShop: action,
       updateShop: action,
@@ -18,8 +20,9 @@ class ShopStore {
 
   fetchShops = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/shops");
+      const response = await instance.get("/shops");
       this.shops = response.data;
+      this.loading = false;
     } catch (error) {
       console.error("ShopStore -> fetchShops -> error", error);
     }
@@ -33,7 +36,7 @@ class ShopStore {
     try {
       const formData = new FormData();
       for (const key in newShop) formData.append(key, newShop[key]);
-      const res = await axios.post("http://localhost:8000/shops", formData);
+      const res = await instance.post("/shops", formData);
       this.shops.push(res.data);
     } catch (error) {
       console.error("ShopStore -> createShop -> error", error);
@@ -44,7 +47,7 @@ class ShopStore {
     // this.shops = this.shops.filter((shop) => shop.id !== shopId);
     // console.log(this.shops);
     try {
-      await axios.delete(`http://localhost:8000/shops/${shopId}`);
+      await instance.delete(`/shops/${shopId}`);
       this.shops = this.shops.filter((shop) => shop.id !== shopId);
     } catch (error) {
       console.error("CookieStore -> deleteCookie -> error", error);
@@ -58,10 +61,7 @@ class ShopStore {
     try {
       const formData = new FormData();
       for (const key in updatedShop) formData.append(key, updatedShop[key]);
-      await axios.put(
-        `http://localhost:8000/shops/${updatedShop.id}`,
-        updatedShop
-      );
+      await instance.put(`/shops/${updatedShop.id}`, updatedShop);
 
       const shop = this.shops.find((shop) => shop.id === updatedShop.id);
 

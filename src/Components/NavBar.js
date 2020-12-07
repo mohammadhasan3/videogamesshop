@@ -1,5 +1,7 @@
 import React from "react";
 
+//Components
+import SignupButton from "./buttons/SignupButton";
 //Styling
 import { ThemeButton, Logo, NavStyled, NavItem } from "../styles";
 import logo from "../logo3.jpg";
@@ -19,6 +21,7 @@ const NavBar = (props) => {
           <NavItem to="/shops" style={{ margin: 10, float: "right" }}>
             Shops
           </NavItem>
+          <SignupButton />
           <ThemeButton onClick={props.toggleTheme}>
             {props.themeText[props.idx]}{" "}
           </ThemeButton>

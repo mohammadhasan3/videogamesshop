@@ -1,14 +1,16 @@
 //Libraries
 import { action, makeObservable, observable } from "mobx";
 import slugify from "react-slugify";
-import axios from "axios";
+import instance from "./instance";
 
 class GameStore {
   games = [];
+  loading = true;
 
   constructor() {
     makeObservable(this, {
       games: observable,
+      loading: observable,
       createGame: action,
       deleteGame: action,
       updateGame: action,
@@ -18,14 +20,16 @@ class GameStore {
 
   fetchGames = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/games");
+      const response = await instance.get("/games");
       this.games = response.data;
+      this.loading = false;
     } catch (error) {
       console.error("GameStore -> fetchGames -> error", error);
     }
   };
 
   getGameById = (gameId) => this.games.find((game) => game.id === gameId);
+
   createGame = async (newGame, shop) => {
     // newGame.id = this.games[this.games.length - 1].id + 1;
     // newGame.slug = slugify(newGame.name);
@@ -34,10 +38,7 @@ class GameStore {
     try {
       const formData = new FormData();
       for (const key in newGame) formData.append(key, newGame[key]);
-      const res = await axios.post(
-        `http://localhost:8000/shops/${shop.id}/games`,
-        formData
-      );
+      const res = await instance.post(`/shops/${shop.id}/games`, formData);
       this.games.push(res.data);
       shop.games.push({ id: res.data.id });
     } catch (error) {
@@ -49,7 +50,7 @@ class GameStore {
     // this.games = this.games.filter((game) => game.id !== gameId);
     // console.log(this.games);
     try {
-      await axios.delete(`http://localhost:8000/games/${gameId}`);
+      await instance.delete(`/games/${gameId}`);
       this.games = this.games.filter((game) => game.id !== gameId);
     } catch (error) {
       console.error("CookieStore -> deleteCookie -> error", error);
@@ -63,10 +64,7 @@ class GameStore {
     try {
       const formData = new FormData();
       for (const key in updatedGame) formData.append(key, updatedGame[key]);
-      await axios.put(
-        `http://localhost:8000/games/${updatedGame.id}`,
-        updatedGame
-      );
+      await instance.put(`/games/${updatedGame.id}`, updatedGame);
 
       const game = this.games.find((game) => game.id === updatedGame.id);
 
